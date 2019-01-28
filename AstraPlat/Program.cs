@@ -10,6 +10,8 @@ namespace AstraPlat
     {
         static void Main(string[] args)
         {
+            #region Покупка карты
+
             bool enterSelection = true;
             double transportWallet = 0;
 
@@ -71,6 +73,11 @@ namespace AstraPlat
             TransportCard transportCard = new TransportCard(transportWallet);
             Console.WriteLine("Остаток на счете: "+ transportCard.TransportWallet);
 
+            #endregion
+
+            #region Снятие наличных при косании к валидатору
+
+
             double adultRouteFee = 90;
             double routeFeeForChildren = 40;
             double experssAdultRouteFee = 180;
@@ -113,6 +120,66 @@ namespace AstraPlat
                 transportCard = transportCard - experssRouteFeeForChildren;
             }
             Console.Write("Остаток на счете: " + transportCard.TransportWallet);
+
+            #endregion
+
+            #region Частичное пополнение
+
+            Console.WriteLine();
+            Console.WriteLine("Нажмите Enter для продолжения: ");
+            Console.ReadLine();
+            System.Console.Clear();
+            Console.WriteLine("Пополнить транспортные карты можно:\n"+
+                                 "через RTVM - автоматы;\n" +
+                                 "в специализированных кассах;\n" +
+                                 "в Qiwi терминалах.\n");
+
+            double partialReplenishment;
+            Console.WriteLine("Сумма на счету карты: " + transportCard.TransportWallet);
+
+            Console.WriteLine("Введите сумму пополнения: ");
+            partialReplenishment = int.Parse(Console.ReadLine());
+           
+            transportCard = transportCard + partialReplenishment;
+            Console.WriteLine("Остаток на счете: " + transportCard.TransportWallet);
+            #endregion
+
+            #region Cистема бонусов
+
+            Console.WriteLine();
+            Console.WriteLine("Нажмите Enter для продолжения: ");
+            Console.ReadLine();
+            System.Console.Clear();
+            Console.WriteLine("За каждую операцию AstraPlat дарит Вам 3,5 тенге бонусом!\n"+
+                " Каждые 140 тенге бонусов - это бесплатная поездка!!!\n");
+            Console.WriteLine("Хотите проверить сколько у Вас бунусов?\n" +
+                                "1. - ДА\n" +
+                                "0. - НЕТ");
+            int choiceBonus = int.Parse(Console.ReadLine());
+            if (choiceBonus>0)
+            {
+                Console.WriteLine("У вас "+ transportCard.GetBonus()+ " бонусов!");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Нажмите Enter для продолжения: ");
+            Console.ReadLine();
+            System.Console.Clear();
+
+            Console.WriteLine("Кроме бонусов каждая 10 поездка бесплано!!!\n" +
+                "Хотите получить информация о поездках?\n" +
+                 "1. - ДА\n" +
+                 "0. - НЕТ");
+            choiceBonus = int.Parse(Console.ReadLine());
+            int freeRide=10;
+            if (choiceBonus > 0)
+            {
+                Console.WriteLine("У вас " + transportCard.GetFreeRide() + " поездок!\n" +
+                    "Осталось еще "+ (freeRide-transportCard.GetFreeRide()));
+            }
+
+            #endregion
+
 
             Console.ReadLine();
         }
